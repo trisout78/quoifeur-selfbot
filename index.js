@@ -66,4 +66,4 @@ process.on('uncaughtException', function (err) {
   console.log(err);
 });
 
-client.login('ODMzMzUxMzcwODU3MzgxOTI5.GzLxgb.h_-5_oQ0i4wyjNfcSKd0G5wOcIrG7C10lf8PFA');
+client.login('token');
