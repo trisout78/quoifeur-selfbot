@@ -6,7 +6,19 @@ client.on('ready', () => {
 });
 
 client.on('message', (message) => {
-  if (message.content.endsWith('quoi') && message.author.id !== client.user.id) {
+  if (message.content.endsWith('Quoi') && message.author.id !== client.user.id) {
+    message.channel.sendTyping();
+    setTimeout(function() {
+        message.reply('feur');
+    }, 2000);
+  }
+  else if (message.content.endsWith('quoi') && message.author.id !== client.user.id) {
+    message.channel.sendTyping();
+    setTimeout(function() {
+        message.reply('feur');
+    }, 2000);
+  }     
+  else if (message.content.endsWith('Quoi?') && message.author.id !== client.user.id) {
     message.channel.sendTyping();
     setTimeout(function() {
         message.reply('feur');
@@ -17,37 +29,91 @@ client.on('message', (message) => {
     setTimeout(function() {
         message.reply('feur');
     }, 2000);
-  }
+  }     
   else if (message.content.endsWith('koi?') && message.author.id !== client.user.id) {
     message.channel.sendTyping();
     setTimeout(function() {
         message.reply('feur');
     }, 2000);
-  }  
+  }
+  else if (message.content.endsWith('Koi?') && message.author.id !== client.user.id) {
+    message.channel.sendTyping();
+    setTimeout(function() {
+        message.reply('feur');
+    }, 2000);
+  }    
   else if (message.content.endsWith('koi') && message.author.id !== client.user.id) {
     message.channel.sendTyping();
     setTimeout(function() {
         message.reply('feur');
     }, 2000);
   }  
+  else if (message.content.endsWith('Koi') && message.author.id !== client.user.id) {
+    message.channel.sendTyping();
+    setTimeout(function() {
+        message.reply('feur');
+    }, 2000);
+  }    
+  else if (message.content.endsWith('Oui?') && message.author.id !== client.user.id) {
+    message.channel.sendTyping();
+    setTimeout(function() {
+        message.reply('stiti');
+    }, 2000);
+  }
+  else if (message.content.endsWith('oui?') && message.author.id !== client.user.id) {
+    message.channel.sendTyping();
+    setTimeout(function() {
+        message.reply('stiti');
+    }, 2000);
+  }   
+  else if (message.content.endsWith('Oui') && message.author.id !== client.user.id) {
+    message.channel.sendTyping();
+    setTimeout(function() {
+        message.reply('stiti');
+    }, 2000);
+  } 
   else if (message.content.endsWith('oui') && message.author.id !== client.user.id) {
     message.channel.sendTyping();
     setTimeout(function() {
         message.reply('stiti');
     }, 2000);
   }
+  else if (message.content.endsWith('ouii') && message.author.id !== client.user.id) {
+    message.channel.sendTyping();
+    setTimeout(function() {
+        message.reply('stitii');
+    }, 2000);
+  }
+  else if (message.content.endsWith('ouiii') && message.author.id !== client.user.id) {
+    message.channel.sendTyping();
+    setTimeout(function() {
+        message.reply('stitiii');
+    }, 2000);
+  }     
   else if (message.content.endsWith('non') && message.author.id !== client.user.id) {
     message.channel.sendTyping();
     setTimeout(function() {
         message.reply('bril');
     }, 2000);
   }
-  else if (message.content.endsWith('hein') && message.author.id !== client.user.id) {
+  else if (message.content.endsWith('Non') && message.author.id !== client.user.id) {
     message.channel.sendTyping();
     setTimeout(function() {
-        message.reply('pagnan');
+        message.reply('bril');
     }, 2000);
   }  
+  else if (message.content.endsWith('Non?') && message.author.id !== client.user.id) {
+    message.channel.sendTyping();
+    setTimeout(function() {
+        message.reply('bril');
+    }, 2000);
+  }  
+  else if (message.content.endsWith('non?') && message.author.id !== client.user.id) {
+    message.channel.sendTyping();
+    setTimeout(function() {
+        message.reply('bril');
+    }, 2000);
+  }    
   else if (message.content.endsWith('rouge') && message.author.id !== client.user.id) {
     message.channel.sendTyping();
     setTimeout(function() {
