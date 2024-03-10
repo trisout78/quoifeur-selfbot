@@ -125,7 +125,43 @@ client.on('message', (message) => {
     setTimeout(function() {
         message.reply('FEUR');
     }, 2000);
-  }  
+  }
+  else if (message.content.endsWith('Hein') && message.author.id !== client.user.id) {
+    message.channel.sendTyping();
+    setTimeout(function() {
+        message.reply('pagnan');
+    }, 2000);
+  }
+  else if (message.content.endsWith('hein') && message.author.id !== client.user.id) {
+    message.channel.sendTyping();
+    setTimeout(function() {
+        message.reply('pagnan');
+    }, 2000);
+  }
+  else if (message.content.endsWith('Wesh') && message.author.id !== client.user.id) {
+    message.channel.sendTyping();
+    setTimeout(function() {
+        message.reply('den');
+    }, 2000);
+  }
+  else if (message.content.endsWith('wesh') && message.author.id !== client.user.id) {
+    message.channel.sendTyping();
+    setTimeout(function() {
+        message.reply('den');
+    }, 2000);
+  }
+  else if (message.content.endsWith('wsh') && message.author.id !== client.user.id) {
+    message.channel.sendTyping();
+    setTimeout(function() {
+        message.reply('den');
+    }, 2000);
+  }
+  else if (message.content.endsWith('Wsh') && message.author.id !== client.user.id) {
+    message.channel.sendTyping();
+    setTimeout(function() {
+        message.reply('den');
+    }, 2000);
+  }   
 });
 
 process.on('uncaughtException', function (err) {
