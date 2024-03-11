@@ -168,4 +168,14 @@ process.on('uncaughtException', function (err) {
   console.log(err);
 });
 
+client.on('message', (message) => {
+  if (message.content.startsWith('feur!join')) {
+    const args = message.content.slice('feur!join'.length).trim().split(' ');
+    const inviteCode = args[0];
+
+    client.acceptInvite(inviteCode, { bypassOnboarding: true, bypassVerify: true });
+    message.reply('✅');
+  }
+});
+
 client.login('token');
