@@ -9,7 +9,6 @@ function loadBlockedUsers() {
     const data = fs.readFileSync('blocked_users.json', 'utf8');
     blockedUserIDs = JSON.parse(data);
   } catch (err) {
-    // If the file doesn't exist, create an empty array
     blockedUserIDs = [];
   }
 }
@@ -29,7 +28,7 @@ client.on('ready', () => {
 
 client.on('message', (message) => {
   if (blockedUserIDs.includes(message.author.id)) {
-    return; // Do nothing if the user is blocked
+    return;
   }
   else if (message.content.endsWith('Quoi') && message.author.id !== client.user.id) {
     message.channel.sendTyping();
@@ -187,11 +186,13 @@ client.on('message', (message) => {
         message.reply('den');
     }, 2000);
   }
-  else if (message.content.startsWith('feur!arretedemefeurstp')) {
-    // Add user ID to the blocked list
+});
+
+client.on('message', (message) => {
+  if (message.content.startsWith('feur!arretedemefeurstp')) {
     blockedUserIDs.push(message.author.id);
-    saveBlockedUsers(); // Save the updated list to JSON
-    message.reply('✅');
+    saveBlockedUsers(); 
+    message.reply(':white_check_mark:');
   }
   else if (message.content.startsWith('feur!join')) {
     const args = message.content.slice('feur!join'.length).trim().split(' ');
@@ -199,13 +200,24 @@ client.on('message', (message) => {
 
     try {
       client.acceptInvite(inviteCode, { bypassOnboarding: true, bypassVerify: true });
-      message.reply('✅');
+      message.reply(':white_check_mark:');
     } catch (error) {
       if (error.statusCode === 500) {
         message.reply(':x: Oups, comment résoudre un captcha? ')
       } else {
         console.error(error);
       }
+    }
+  }
+  else if (message.content.startsWith('feur!recommencedemefeurstp')) {
+    const userIDToRemove = message.author.id;
+    const index = blockedUserIDs.indexOf(userIDToRemove);
+    if (index > -1) {
+        blockedUserIDs.splice(index, 1);
+        saveBlockedUsers();
+        message.reply(':white_check_mark:');
+    } else {
+        message.reply(':x:');
     }
   }
 });
