@@ -197,7 +197,43 @@ client.on('message', (message) => {
     setTimeout(function() {
         message.reply('Lant');
     }, 2000);
-  }  
+  }
+  else if (message.content.endsWith('Comment') && message.author.id !== client.user.id) {
+    message.channel.sendTyping();
+    setTimeout(function() {
+        message.reply('taire');
+    }, 2000);
+  }
+  else if (message.content.endsWith('comment') && message.author.id !== client.user.id) {
+    message.channel.sendTyping();
+    setTimeout(function() {
+        message.reply('taire');
+    }, 2000);
+  }
+  else if (message.content.endsWith('comment?') && message.author.id !== client.user.id) {
+    message.channel.sendTyping();
+    setTimeout(function() {
+        message.reply('taire');
+    }, 2000);
+  } 
+  else if (message.content.endsWith('Comment?') && message.author.id !== client.user.id) {
+    message.channel.sendTyping();
+    setTimeout(function() {
+        message.reply('taire');
+    }, 2000);
+  }   
+  else if (message.content.endsWith('Comment ?') && message.author.id !== client.user.id) {
+    message.channel.sendTyping();
+    setTimeout(function() {
+        message.reply('taire');
+    }, 2000);
+  } 
+  else if (message.content.endsWith('comment ?') && message.author.id !== client.user.id) {
+    message.channel.sendTyping();
+    setTimeout(function() {
+        message.reply('taire');
+    }, 2000);
+  }   
 });
 
 client.on('message', (message) => {
@@ -214,11 +250,7 @@ client.on('message', (message) => {
       client.acceptInvite(inviteCode, { bypassOnboarding: true, bypassVerify: true });
       message.reply(':white_check_mark:');
     } catch (error) {
-      if (error.statusCode === CAPTCHA_SOLVER_NOT_IMPLEMENTED) {
-        message.reply(':x: Oups, comment résoudre un captcha? ')
-      } else {
-        console.error(error);
-      }
+        message.reply(':x:');
     }
   }
   else if (message.content.startsWith('feur!recommencedemefeurstp')) {
