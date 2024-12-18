@@ -76,7 +76,7 @@ client.on('message', (message) => {
         })
         .catch((error) => {
           if (error.message.includes('CAPTCHA_SOLVER_NOT_IMPLEMENTED')) {
-            message.reply(':x:');
+            message.reply(':x: https://forms.gle/RHgfN2jjGteCVYpU6');
           } else {
             message.reply(':x:');
             console.error(error);
