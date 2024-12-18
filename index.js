@@ -29,7 +29,7 @@ client.on('ready', () => {
 // Responses mapping
 const responses = [
   { regex: /\bquoi\b|\bquoi\?$/i, reply: 'feur' },
-  { regex: /\boui+\?*$/i, reply: (match) => 'sti' + 'ti'.repeat(match[0].match(/i/g)?.length - 1 || 0) },
+  { regex: /\boui+\?*$/i, reply: 'stiti' },
   { regex: /\bnon\?*$/i, reply: 'bril' },
   { regex: /\brouge$/i, reply: 'gorge' },
   { regex: /\bhein$/i, reply: 'pagnan' },
