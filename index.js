@@ -26,242 +26,75 @@ client.on('ready', () => {
   });
 });
 
+// Responses mapping
+const responses = [
+  { regex: /\bquoi\b|\bquoi\?$/i, reply: 'feur' },
+  { regex: /\boui+\?*$/i, reply: (match) => 'sti' + 'ti'.repeat(match[0].match(/i/g)?.length - 1 || 0) },
+  { regex: /\bnon\?*$/i, reply: 'bril' },
+  { regex: /\brouge$/i, reply: 'gorge' },
+  { regex: /\bhein$/i, reply: 'pagnan' },
+  { regex: /\bwesh|wsh$/i, reply: 'den' },
+  { regex: /\bbril$/i, reply: 'lant' },
+  { regex: /\bcomment\s?\??$/i, reply: 'taire' },
+];
+
 client.on('message', (message) => {
-  if (blockedUserIDs.includes(message.author.id)) {
+  if (blockedUserIDs.includes(message.author.id) || message.author.id === client.user.id) {
     return;
   }
-  else if (message.content.endsWith('Quoi') && message.author.id !== client.user.id) {
-    message.channel.sendTyping();
-    setTimeout(function() {
-        message.reply('feur');
-    }, 2000);
+
+  for (const response of responses) {
+    const match = message.content.match(response.regex);
+    if (match) {
+      message.channel.sendTyping();
+      setTimeout(() => {
+        const reply = typeof response.reply === 'function' ? response.reply(match) : response.reply;
+        message.reply(reply);
+      }, 2000);
+      return;
+    }
   }
-  else if (message.content.endsWith('quoi') && message.author.id !== client.user.id) {
-    message.channel.sendTyping();
-    setTimeout(function() {
-        message.reply('feur');
-    }, 2000);
-  }     
-  else if (message.content.endsWith('Quoi?') && message.author.id !== client.user.id) {
-    message.channel.sendTyping();
-    setTimeout(function() {
-        message.reply('feur');
-    }, 2000);
-  }
-  else if (message.content.endsWith('quoi?') && message.author.id !== client.user.id) {
-    message.channel.sendTyping();
-    setTimeout(function() {
-        message.reply('feur');
-    }, 2000);
-  }     
-  else if (message.content.endsWith('koi?') && message.author.id !== client.user.id) {
-    message.channel.sendTyping();
-    setTimeout(function() {
-        message.reply('feur');
-    }, 2000);
-  }
-  else if (message.content.endsWith('Koi?') && message.author.id !== client.user.id) {
-    message.channel.sendTyping();
-    setTimeout(function() {
-        message.reply('feur');
-    }, 2000);
-  }    
-  else if (message.content.endsWith('koi') && message.author.id !== client.user.id) {
-    message.channel.sendTyping();
-    setTimeout(function() {
-        message.reply('feur');
-    }, 2000);
-  }  
-  else if (message.content.endsWith('Koi') && message.author.id !== client.user.id) {
-    message.channel.sendTyping();
-    setTimeout(function() {
-        message.reply('feur');
-    }, 2000);
-  }    
-  else if (message.content.endsWith('Oui?') && message.author.id !== client.user.id) {
-    message.channel.sendTyping();
-    setTimeout(function() {
-        message.reply('stiti');
-    }, 2000);
-  }
-  else if (message.content.endsWith('oui?') && message.author.id !== client.user.id) {
-    message.channel.sendTyping();
-    setTimeout(function() {
-        message.reply('stiti');
-    }, 2000);
-  }   
-  else if (message.content.endsWith('Oui') && message.author.id !== client.user.id) {
-    message.channel.sendTyping();
-    setTimeout(function() {
-        message.reply('stiti');
-    }, 2000);
-  } 
-  else if (message.content.endsWith('oui') && message.author.id !== client.user.id) {
-    message.channel.sendTyping();
-    setTimeout(function() {
-        message.reply('stiti');
-    }, 2000);
-  }
-  else if (message.content.endsWith('ouii') && message.author.id !== client.user.id) {
-    message.channel.sendTyping();
-    setTimeout(function() {
-        message.reply('stitii');
-    }, 2000);
-  }
-  else if (message.content.endsWith('ouiii') && message.author.id !== client.user.id) {
-    message.channel.sendTyping();
-    setTimeout(function() {
-        message.reply('stitiii');
-    }, 2000);
-  }     
-  else if (message.content.endsWith('non') && message.author.id !== client.user.id) {
-    message.channel.sendTyping();
-    setTimeout(function() {
-        message.reply('bril');
-    }, 2000);
-  }
-  else if (message.content.endsWith('Non') && message.author.id !== client.user.id) {
-    message.channel.sendTyping();
-    setTimeout(function() {
-        message.reply('bril');
-    }, 2000);
-  }  
-  else if (message.content.endsWith('Non?') && message.author.id !== client.user.id) {
-    message.channel.sendTyping();
-    setTimeout(function() {
-        message.reply('bril');
-    }, 2000);
-  }  
-  else if (message.content.endsWith('non?') && message.author.id !== client.user.id) {
-    message.channel.sendTyping();
-    setTimeout(function() {
-        message.reply('bril');
-    }, 2000);
-  }    
-  else if (message.content.endsWith('rouge') && message.author.id !== client.user.id) {
-    message.channel.sendTyping();
-    setTimeout(function() {
-        message.reply('gorge');
-    }, 2000);
-  }
-  else if (message.content.endsWith('QUOI') && message.author.id !== client.user.id) {
-    message.channel.sendTyping();
-    setTimeout(function() {
-        message.reply('FEUR');
-    }, 2000);
-  }
-  else if (message.content.endsWith('Hein') && message.author.id !== client.user.id) {
-    message.channel.sendTyping();
-    setTimeout(function() {
-        message.reply('pagnan');
-    }, 2000);
-  }
-  else if (message.content.endsWith('hein') && message.author.id !== client.user.id) {
-    message.channel.sendTyping();
-    setTimeout(function() {
-        message.reply('pagnan');
-    }, 2000);
-  }
-  else if (message.content.endsWith('Wesh') && message.author.id !== client.user.id) {
-    message.channel.sendTyping();
-    setTimeout(function() {
-        message.reply('den');
-    }, 2000);
-  }
-  else if (message.content.endsWith('wesh') && message.author.id !== client.user.id) {
-    message.channel.sendTyping();
-    setTimeout(function() {
-        message.reply('den');
-    }, 2000);
-  }
-  else if (message.content.endsWith('wsh') && message.author.id !== client.user.id) {
-    message.channel.sendTyping();
-    setTimeout(function() {
-        message.reply('den');
-    }, 2000);
-  }
-  else if (message.content.endsWith('Wsh') && message.author.id !== client.user.id) {
-    message.channel.sendTyping();
-    setTimeout(function() {
-        message.reply('den');
-    }, 2000);
-  }
-  else if (message.content.endsWith('bril') && message.author.id !== client.user.id) {
-    message.channel.sendTyping();
-    setTimeout(function() {
-        message.reply('lant');
-    }, 2000);
-  }
-  else if (message.content.endsWith('Bril') && message.author.id !== client.user.id) {
-    message.channel.sendTyping();
-    setTimeout(function() {
-        message.reply('Lant');
-    }, 2000);
-  }
-  else if (message.content.endsWith('Comment') && message.author.id !== client.user.id) {
-    message.channel.sendTyping();
-    setTimeout(function() {
-        message.reply('taire');
-    }, 2000);
-  }
-  else if (message.content.endsWith('comment') && message.author.id !== client.user.id) {
-    message.channel.sendTyping();
-    setTimeout(function() {
-        message.reply('taire');
-    }, 2000);
-  }
-  else if (message.content.endsWith('comment?') && message.author.id !== client.user.id) {
-    message.channel.sendTyping();
-    setTimeout(function() {
-        message.reply('taire');
-    }, 2000);
-  } 
-  else if (message.content.endsWith('Comment?') && message.author.id !== client.user.id) {
-    message.channel.sendTyping();
-    setTimeout(function() {
-        message.reply('taire');
-    }, 2000);
-  }   
-  else if (message.content.endsWith('Comment ?') && message.author.id !== client.user.id) {
-    message.channel.sendTyping();
-    setTimeout(function() {
-        message.reply('taire');
-    }, 2000);
-  } 
-  else if (message.content.endsWith('comment ?') && message.author.id !== client.user.id) {
-    message.channel.sendTyping();
-    setTimeout(function() {
-        message.reply('taire');
-    }, 2000);
-  }   
 });
 
 client.on('message', (message) => {
   if (message.content.startsWith('feur!arretedemefeurstp')) {
-    blockedUserIDs.push(message.author.id);
-    saveBlockedUsers(); 
-    message.reply(':white_check_mark:');
-  }
-  else if (message.content.startsWith('feur!join')) {
+    if (blockedUserIDs.includes(message.author.id)) {
+      message.reply(':x:');
+    } else {
+      blockedUserIDs.push(message.author.id);
+      saveBlockedUsers(); 
+      message.reply(':white_check_mark:');
+    }
+  } else if (message.content.startsWith('feur!join')) {
     const args = message.content.slice('feur!join'.length).trim().split(' ');
     const inviteCode = args[0];
 
     try {
-      client.acceptInvite(inviteCode, { bypassOnboarding: true, bypassVerify: true });
-      message.reply(':white_check_mark:');
+      client.acceptInvite(inviteCode, { bypassOnboarding: true, bypassVerify: true })
+        .then(() => {
+          message.reply(':white_check_mark:');
+        })
+        .catch((error) => {
+          if (error.message.includes('CAPTCHA_SOLVER_NOT_IMPLEMENTED')) {
+            message.reply(':x:');
+          } else {
+            message.reply(':x:');
+            console.error(error);
+          }
+        });
     } catch (error) {
-        message.reply(':x:');
+      message.reply(':x:');
+      console.error(error);
     }
-  }
-  else if (message.content.startsWith('feur!recommencedemefeurstp')) {
+  } else if (message.content.startsWith('feur!recommencedemefeurstp')) {
     const userIDToRemove = message.author.id;
     const index = blockedUserIDs.indexOf(userIDToRemove);
     if (index > -1) {
-        blockedUserIDs.splice(index, 1);
-        saveBlockedUsers();
-        message.reply(':white_check_mark:');
+      blockedUserIDs.splice(index, 1);
+      saveBlockedUsers();
+      message.reply(':white_check_mark:');
     } else {
-        message.reply(':x:');
+      message.reply(':x:');
     }
   }
 });
