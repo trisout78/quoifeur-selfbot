@@ -1,6 +1,8 @@
-const Discord = require('discord.js-selfbot-v13');
+import Discord from 'discord.js-selfbot-v13';
+import fs from 'fs';
+import { GoogleGenAI } from "@google/genai";
 const client = new Discord.Client();
-const fs = require('fs');
+const ai = new GoogleGenAI({ apiKey: "API KEY" });
 
 let blockedUserIDs = [];
 
@@ -28,18 +30,38 @@ client.on('ready', () => {
 
 // Responses mapping
 const responses = [
-  { regex: /\bquoi\b|\bquoi\?$/i, reply: 'feur' },
-  { regex: /\boui+\?*$/i, reply: 'stiti' },
-  { regex: /\bnon\?*$/i, reply: 'bril' },
-  { regex: /\brouge$/i, reply: 'gorge' },
-  { regex: /\bhein$/i, reply: 'pagnan' },
-  { regex: /\bwesh|wsh$/i, reply: 'den' },
-  { regex: /\bbril$/i, reply: 'lant' },
-  { regex: /\bcomment\s?\??$/i, reply: 'taire' },
+  { regex: /\bquoi\s*\??\s*$/i, reply: 'feur' },
+  { regex: /\boui+\s*\??\s*$/i, reply: 'stiti' },
+  { regex: /\bnon\s*\??\s*$/i, reply: 'bril' },
+  { regex: /\brouge\s*$/i, reply: 'gorge' },
+  { regex: /\bhein\s*$/i, reply: 'pagnan' },
+  { regex: /\bwesh|wsh\s*$/i, reply: 'den' },
+  { regex: /\bbril\s*$/i, reply: 'lant' },
+  { regex: /\bcomment\s*\??\s*$/i, reply: 'taire' },
 ];
 
-client.on('message', (message) => {
+client.on('message', async (message) => {
   if (blockedUserIDs.includes(message.author.id) || message.author.id === client.user.id) {
+    return;
+  }
+
+  if (message.mentions.has(client.user)) {
+    message.channel.sendTyping();
+    const prompt = `Tu es FeurBot, de base un bot qui repond feut quand on dit quoi. Agit comme un gamin de 8 ans, tu es insupportable, tu fait des blagues horriblament pas drole a chaque réponse. Message de l’utilisateur : ${message.content}`;
+    try {
+      const response = await ai.models.generateContent({
+        model: "gemini-2.0-flash-lite",
+        contents: prompt,
+      });
+      if (response && response.text) {
+        message.reply(response.text);
+      } else {
+        message.reply('feur');
+      }
+    } catch (err) {
+      message.reply('feur');
+      console.error(err);
+    }
     return;
   }
 
