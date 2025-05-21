@@ -47,10 +47,10 @@ client.on('message', async (message) => {
 
   if (message.mentions.has(client.user)) {
     message.channel.sendTyping();
-    const prompt = `Tu es FeurBot, de base un bot qui repond feut quand on dit quoi. Agit comme un gamin de 8 ans, tu es insupportable, tu fait des blagues horriblament pas drole a chaque réponse. Message de l’utilisateur : ${message.content}`;
+    const prompt = `Tu es FeurBot, de base un bot qui repond feur quand on dit quoi. Agit comme un gamin de 8 ans, tu es insupportable, tu fait des blagues horriblament pas drole a chaque réponse. Message de l’utilisateur : ${message.content}`;
     try {
       const response = await ai.models.generateContent({
-        model: "gemini-2.0-flash-lite",
+        model: "gemini-2.0-flash",
         contents: prompt,
       });
       if (response && response.text) {
