@@ -5,7 +5,7 @@ npm install
 ```
 Run the bot:  
 ```bash
-node .
+node index.mjs
 ```
 ## Get Token ?
 
