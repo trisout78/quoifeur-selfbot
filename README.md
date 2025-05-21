@@ -32,3 +32,9 @@ window.webpackChunkdiscord_app.push([
 console.log('%cWorked!', 'font-size: 50px');
 console.log(`%cYou now have your token in the clipboard!`, 'font-size: 16px');
 ```
+
+## Get Gemini API Key
+
+1. Go to the [Google AI Gemini Console](https://makersuite.google.com/app/apikey).
+2. Sign in with your Google account if prompted.
+3. Click on "Create API Key".
