@@ -41,10 +41,6 @@ const responses = [
 ];
 
 client.on('message', async (message) => {
-  if (blockedUserIDs.includes(message.author.id) || message.author.id === client.user.id) {
-    return;
-  }
-
   if (message.mentions.has(client.user)) {
     message.channel.sendTyping();
     const prompt = `Tu es FeurBot, de base un bot qui repond feur quand on dit quoi. Agit comme un gamin de 8 ans, tu es insupportable, tu fait des blagues horriblament pas drole a chaque réponse. Message de l’utilisateur : ${message.content}`;
@@ -62,6 +58,8 @@ client.on('message', async (message) => {
       message.reply('feur');
       console.error(err);
     }
+    return;
+  } else if (blockedUserIDs.includes(message.author.id) || message.author.id === client.user.id) {
     return;
   }
 
