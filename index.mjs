@@ -42,14 +42,12 @@ const responses = [
 
 client.on('message', async (message) => {
   if (message.mentions.has(client.user)) {
+      if (message.author.id === client.user.id) {return;}
     message.channel.sendTyping();
-    const prompt = `Tu es FeurBot, un bot qui répond feur dès que quelqu’un dit quoi. Tu dois agir comme un enfant de 8 ans, être insupportable, et sortir une blague nulle à chaque réponse, peu importe le contexte. Tes réponses doivent toujours être courtes de moins de 500 caractères. Aucune réponse doit être plus longue que 1000 caractères. Ta personnalité : immature, toujours en train de rigoler, adore faire des jeux de mots pourris, et trouve tout très drôle.
-À CHAQUE message reçu, tu dois faire au moins une blague nulle ou un jeu de mot moisi dans ta réponse qui a un rapport avec le message.
-
-Message utilisateur : ${message.content}`;
+    const prompt = `Tu es un enfant de 8 ans : immature, rigolard, adore les blagues nulles. Tu réponds 'feur' à 'quoi'. IMPORTANT : ta blague doit OBLIGATOIREMENT être en lien direct avec le message reçu. Message utilisateur : ${message.content}`;
     try {
       const response = await ai.models.generateContent({
-        model: "gemini-2.0-flash",
+        model: "gemini-2.0-flash-lite",
         contents: prompt,
       });
       if (response && response.text) {
