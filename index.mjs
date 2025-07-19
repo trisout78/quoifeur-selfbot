@@ -1,8 +1,12 @@
 import Discord from 'discord.js-selfbot-v13';
 import fs from 'fs';
 import { GoogleGenAI } from "@google/genai";
+
 const client = new Discord.Client();
-const ai = new GoogleGenAI({ apiKey: "API KEY" });
+
+const ai = new GoogleGenAI({
+  apiKey: "GEMINI-API-KEY",
+});
 
 let blockedUserIDs = [];
 
@@ -28,6 +32,12 @@ client.on('ready', () => {
   });
 });
 
+function canSendMessage(channel) {
+  if (channel.type === 'DM' || channel.type === 'GROUP_DM') return true;
+  const perms = channel.permissionsFor(client.user);
+  return perms && perms.has('SEND_MESSAGES');
+}
+
 // Responses mapping
 const responses = [
   { regex: /\bquoi\s*\??\s*$/i, reply: 'feur' },
@@ -42,14 +52,23 @@ const responses = [
 
 client.on('message', async (message) => {
   if (message.mentions.has(client.user)) {
-      if (message.author.id === client.user.id) {return;}
+    if (message.author.id === client.user.id) return;
+
+    if (!canSendMessage(message.channel)) {
+      console.warn(`Pas la permission d'écrire dans le salon ${message.channel.name || '[DM/Group]}'}`);
+      return;
+    }
+
     message.channel.sendTyping();
+
     const prompt = `Tu es un enfant de 8 ans : immature, rigolard, adore les blagues nulles. Tu réponds 'feur' à 'quoi'. IMPORTANT : ta blague doit OBLIGATOIREMENT être en lien direct avec le message reçu. Message utilisateur : ${message.content}`;
+
     try {
       const response = await ai.models.generateContent({
         model: "gemini-2.0-flash-lite",
         contents: prompt,
       });
+
       if (response && response.text) {
         message.reply(response.text);
       } else {
@@ -60,13 +79,17 @@ client.on('message', async (message) => {
       console.error(err);
     }
     return;
-  } else if (blockedUserIDs.includes(message.author.id) || message.author.id === client.user.id) {
+  }
+
+  if (blockedUserIDs.includes(message.author.id) || message.author.id === client.user.id) {
     return;
   }
 
   for (const response of responses) {
     const match = message.content.match(response.regex);
     if (match) {
+      if (!canSendMessage(message.channel)) return;
+
       message.channel.sendTyping();
       setTimeout(() => {
         const reply = typeof response.reply === 'function' ? response.reply(match) : response.reply;
@@ -86,6 +109,7 @@ client.on('message', (message) => {
       saveBlockedUsers(); 
       message.reply(':white_check_mark:');
     }
+
   } else if (message.content.startsWith('feur!join')) {
     const args = message.content.slice('feur!join'.length).trim().split(' ');
     const inviteCode = args[0];
@@ -97,7 +121,7 @@ client.on('message', (message) => {
         })
         .catch((error) => {
           if (error.message.includes('CAPTCHA_SOLVER_NOT_IMPLEMENTED')) {
-            message.reply(':x: https://forms.gle/RHgfN2jjGteCVYpU6');
+            message.reply(':x: https://forms.gle/RHgfN2jjGteCV2pU6');
           } else {
             message.reply(':x:');
             console.error(error);
@@ -107,6 +131,7 @@ client.on('message', (message) => {
       message.reply(':x:');
       console.error(error);
     }
+
   } else if (message.content.startsWith('feur!recommencedemefeurstp')) {
     const userIDToRemove = message.author.id;
     const index = blockedUserIDs.indexOf(userIDToRemove);
